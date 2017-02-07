@@ -2,45 +2,37 @@
 # Based on Andrew Ng's Machine Learning course at Stanford
 
 import random
-import numpy
+import numpy as np
 import matplotlib.pyplot as plt
 import plotly.plotly as py
-	
-### Generates data set of [Y, X1, X2, ... Xn], for example [Price, House Size, number of bedrooms, ...]
-SampleSize = 10
+import plotly.graph_objs as go
+
 NumOfVars = 1
 
-def generateData():
-	Data = []
-
-	for k in range(SampleSize):
-		sample = []
-		for j in range(NumOfVars+1):
-			sample = sample + [random.random()]
-		Data = Data + [sample]
-	return Data
-	
-#Data = generateData()
-
-#Data = [[1,0],[.5,.5],[.6, .2],[.4,.7],[.5,.6],[.5,.5],[.1,.8],[.1,.9]]
+### Generates pseudo random linear data
 
 Data = []
+m = 20 * random.random() - 10
 for i in range(1000):
-    x = random.random()
-    Data = Data + [[(-9)*x,x]]
+    x = 2 * random.random() - 2
+    y = random.random()
+    z = random.random()
+    Data = Data + [[m*x + y, x + z]]
 
-
+### Create Arrays and Vectors for graphing
+    
 XVect = []
 YVect = []
 for k in range(len(Data)):
     XVect = XVect + [Data[k][1]]
     YVect = YVect + [Data[k][0]]
-#print XVect
-#print YVect    
+
+XArray = np.array(XVect)
+YArray = np.array(YVect)
 
 ### Linear Regression Hypothesis
-Theta0 = 0
-Theta1 = 4
+Theta0 = 1
+Theta1 = 1
 
 def hTheta(t0, t1, x):
     return t0 + t1*x
@@ -71,17 +63,27 @@ def GradDescent(t0,t1,y,x,a, iterations):
         t1 = t1 - a*DJ1
 
         t0s = t0s + [t0]
-        t1s = t1s + [t1] 
+        t1s = t1s + [t1]
+
+    
+    printstr = "y = " + str(t0) + " + " + str(t1) + "x"
+    print printstr
+    predictedY = []
+    for x in XVect:
+        predictedY = predictedY + [t0 + t1*x]
+    fig = plt.figure()
+    fig.add_subplot(212)
     plt.plot(range(iterations), t0s)
     plt.plot(range(iterations), t1s)
+    fig.add_subplot(211)
+    plt.plot(XVect,predictedY, 'r')
+    plt.scatter(XArray,YArray)
     plt.show()
-    printstr = "y = " + str(t0) + " + " + str(t1) + "x"
-    print printstr 
     return (t0,t1)
 
 GradDescent(Theta0,Theta1,YVect,XVect,.001,1000)
 #
-#plt.plot(XVect,YVect)
+#
 #plt.show()
 
 ### Calculates means for each variable

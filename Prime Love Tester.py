@@ -1,11 +1,14 @@
+# -*- coding: utf-8 -*-
+
 ### Portfolio Note
 #This was a final project for a Computer Science and Engineering course I taught
 #in 2015-16, I designed the program in such a way that each student was given
 #a function to write that suited their abilities, not necessarily to make the
-#fastest, best performing tool.
+#fastest, best performing tool. It's best to keep names short as the factoring
+#algorithm is not very fast.
 
 
-# -*- coding: utf-8 -*-
+
 #Before you push your additions to the code, make sure they exactly fit the parameters described in the project!
 #Let's write delicious code. がんばってくらさい！
 
@@ -251,7 +254,7 @@ def parse_to_number(achyuth):
 #JG Changes
 def list_of_pairs(number):
     a_list = []
-    list_of_factors = lpf(number)
+    list_of_factors = list_prime_factors(number)
     for factor in list_of_factors:
         multipli = multiplicity(factor, number)
         a_list.append([ factor, multipli ])
@@ -302,49 +305,49 @@ def sentence_spitter(n):
     if n < 0:
         return message_0
     if n == 0:
-	return percent + "% match-- " + message0
+        return percent + "% match-- " + message0
     if .01 < n <= 0.05:
-	return percent + "% match -- " + message1
+        return percent + "% match -- " + message1
     if .05 < n <= 0.10:
-	return percent + "% match -- " + message2
+        return percent + "% match -- " + message2
     if .10 < n <= 0.15:
-	return percent + "% match -- " + message3
+        return percent + "% match -- " + message3
     if .15 < n <= 0.20:
-	return percent + "% match -- " + message4
+        return percent + "% match -- " + message4
     if .20 < n <= 0.25:
-	return percent + "% match -- " + message5
+        return percent + "% match -- " + message5
     if .25 < n <= 0.30:
-	return percent + "% match -- " + message6
+        return percent + "% match -- " + message6
     if .30 < n <= 0.35:
-	return percent + "% match -- " + message7
+        return percent + "% match -- " + message7
     if .35 < n <= 0.40:
-	return percent + "% match -- " + message8
+        return percent + "% match -- " + message8
     if .40 < n <= 0.45:
-	return percent + "% match -- " + message9
+        return percent + "% match -- " + message9
     if .45 < n <= 0.50:
-	return percent + "% match -- " + message10
+        return percent + "% match -- " + message10
     if .50 < n <= 0.55:
-	return percent + "% match -- " + message11
+        return percent + "% match -- " + message11
     if .55 < n <= 0.60:
-	return percent + "% match -- " + message12
+        return percent + "% match -- " + message12
     if .60 < n <= 0.65:
         return percent + "% match -- " + message13
     if .65 < n <= 0.70:
-	return percent + "% match! -- " + message14
+        return percent + "% match! -- " + message14
     if .70 < n <= 0.75:
-	return percent + "% match! -- " + message15
+        return percent + "% match! -- " + message15
     if .75 < n <= 0.80:
-	return percent + "% match! -- " + message16
+        return percent + "% match! -- " + message16
     if .80 < n <= 0.85:
-	return percent + "% match! -- " + message17
+        return percent + "% match! -- " + message17
     if .85 < n <= 0.90:
-	return percent + "% match! -- " + message18
+        return percent + "% match! -- " + message18
     if .90 < n <= 0.95:
-	return percent + "% match! -- " + message19
+        return percent + "% match! -- " + message19
     if .95 < n <= .990:
-	return percent + "% match!! -- " + message20
+        return percent + "% match!! -- " + message20
     if n == 1.0:
-	return percent + "%!!! -- " + message21
+        return percent + "%!!! -- " + message21
 
 
 
@@ -373,66 +376,66 @@ import datetime
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 def lpf(num):
-	init_file = open("Prime Lists\Primesy_0_to_100000000.py")
-	primes = ast.literal_eval(init_file.read())
-	init_file.close()
-	lp_file = open("Prime Lists\Large Primes.py")
-	large_primes = ast.literal_eval(lp_file.read())
-	lp_file.close()
-	current_num = num
-	factor_list = []
-	for p in primes:
-		if p > current_num:
-			return factor_list
-		if current_num%p == 0:
-			factor_list.append(p)
-			while current_num%p == 0:
-				current_num = current_num/p
-	if primes[-1]**2 > current_num:
-		factor_list.append(int(current_num))
-		if not (current_num in large_primes):
-			large_primes.append(int(current_num))
-		ulp_file = open("Prime Lists\Large Primes.py", "w")
-		ulp_file.write(str(large_primes))
-		ulp_file.close
-		return factor_list
-	for p in large_primes:
-		if current_num%p == 0:
-			factor_list.append(p)
-			while current_num%p == 0:
-				current_num = current_num/p
-	more_lists = 1
-	list_count = 1
-	while more_lists == 1:
-		try:
-			nfname = "Prime Lists\Primesy_" + str(100000000*list_count) + "_to_" + str(100000000*(list_count + 1)) + ".py"
-			print "Attempting to load", nfname
-			next_file = open(nfname)
-			primes = ast.literal_eval(next_file.read())
-			next_file.close()
-		except:
-			more_lists = 0
-		for p in primes:
-			if p > current_num:
-				return factor_list
-			if current_num%p == 0:
-				factor_list.append(p)
-				while current_num%p == 0:
-					current_num = current_num/p
-		if primes[-1]**2 > current_num:
-			factor_list.append(int(current_num))
-			if not (current_num in large_primes):
-				large_primes.append(int(current_num))
-			ulp_file = open("Prime Lists\Large Primes.py", "w")
-			ulp_file.write(str(large_primes))
-			ulp_file.close
-			return factor_list
-		list_count = list_count + 1	
-	if primes[-1]**2 < current_num:
-		print "Warning: up to", int(math.sqrt(current_num)) - primes[-1],\
-		"more integers may be need to be tested to completely factor", num 
-	return factor_list
-		
+    init_file = open("Prime Lists\Primesy_0_to_100000000.py")
+    primes = ast.literal_eval(init_file.read())
+    init_file.close()
+    lp_file = open("Prime Lists\Large Primes.py")
+    large_primes = ast.literal_eval(lp_file.read())
+    lp_file.close()
+    current_num = num
+    factor_list = []
+    for p in primes:
+        if p > current_num:
+            return factor_list
+        if current_num%p == 0:
+            factor_list.append(p)
+            while current_num%p == 0:
+                current_num = current_num/p
+    if primes[-1]**2 > current_num:
+        factor_list.append(int(current_num))
+        if not (current_num in large_primes):
+            large_primes.append(int(current_num))
+        ulp_file = open("Prime Lists\Large Primes.py", "w")
+        ulp_file.write(str(large_primes))
+        ulp_file.close
+        return factor_list
+    for p in large_primes:
+        if current_num%p == 0:
+            factor_list.append(p)
+            while current_num%p == 0:
+                current_num = current_num/p
+    more_lists = 1
+    list_count = 1
+    while more_lists == 1:
+        try:
+            nfname = "Prime Lists\Primesy_" + str(100000000*list_count) + "_to_" + str(100000000*(list_count + 1)) + ".py"
+            print "Attempting to load", nfname
+            next_file = open(nfname)
+            primes = ast.literal_eval(next_file.read())
+            next_file.close()
+        except:
+            more_lists = 0
+        for p in primes:
+            if p > current_num:
+                return factor_list
+            if current_num%p == 0:
+                factor_list.append(p)
+                while current_num%p == 0:
+                    current_num = current_num/p
+        if primes[-1]**2 > current_num:
+            factor_list.append(int(current_num))
+            if not (current_num in large_primes):
+                large_primes.append(int(current_num))
+            ulp_file = open("Prime Lists\Large Primes.py", "w")
+            ulp_file.write(str(large_primes))
+            ulp_file.close
+            return factor_list
+        list_count = list_count + 1 
+    if primes[-1]**2 < current_num:
+        print "Warning: up to", int(math.sqrt(current_num)) - primes[-1],\
+        "more integers may be need to be tested to completely factor", num 
+    return factor_list
+        
     
 
 def list_prime_factors(num):
