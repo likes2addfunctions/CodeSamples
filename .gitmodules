@@ -1,0 +1,6 @@
+[submodule "Prime-Number-Algorithms"]
+	path = Prime-Number-Algorithms
+	url = ./Prime-Number-Algorithms
+[submodule "PrimeAlgs"]
+	path = PrimeAlgs
+	url = ./PrimeAlgs

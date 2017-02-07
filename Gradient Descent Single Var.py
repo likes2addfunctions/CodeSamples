@@ -14,9 +14,9 @@ NumOfVars = 1
 Data = []
 m = 20 * random.random() - 10
 for i in range(1000):
-    x = 2 * random.random() - 2
-    y = random.random()
-    z = random.random()
+    x = 2 * random.random() - 1
+    y = 2 * random.random() - 1
+    z = 2 * random.random() -1
     Data = Data + [[m*x + y, x + z]]
 
 ### Create Arrays and Vectors for graphing
