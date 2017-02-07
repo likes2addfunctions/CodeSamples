@@ -9,7 +9,7 @@ import holidays
 
 us_holidays = holidays.UnitedStates()
 
-def marketopenhelp(date,daynum,hour):
+def marketopenhelp(date,daynum,hour,minute):
     
     if date in us_holidays:
         print "markets closed."
@@ -17,8 +17,14 @@ def marketopenhelp(date,daynum,hour):
     if daynum in range(6, 8):
         print "markets closed."
         return 0
-    if hour in range (6,14):
+    if hour in range (7,14):
         return 1
+    if hour == 6:
+        if minute > 29:
+            return 1
+        else:
+            return 0
+        
     print "markets closed."
     return 0
 
@@ -27,7 +33,8 @@ def marketopen():
     date = time.strftime("%m /%d/%Y")
     daynum = d.isoweekday()
     hour = d.hour
-    marketopenhelp(date,daynum,hour)
+    minute = d.minute
+    return marketopenhelp(date,daynum,hour,minute)
     
     
 
@@ -45,8 +52,11 @@ def timetoopen():
 
 while 1:
     if marketopen():
-        execfile("google finance data capture sql.py")
-        time.sleep(60)
+        try:
+            execfile("google finance data capture sql.py")
+            time.sleep(60)
+        except:
+            time.sleep(60)
     else:
         waittime = timetoopen()
         time.sleep(waittime)

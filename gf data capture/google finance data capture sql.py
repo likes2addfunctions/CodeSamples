@@ -5,18 +5,13 @@
 
 import urllib2  # works fine with Python 2.7.9 (not 3.4.+)
 import time
-#import numpy
-#import matplotlib.pyplot as plt
-#import plotly.plotly as py
-#import os
-#import ast
 import mysql.connector
 
 #os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 stat_list = ["cp", "pr" ,"open", "vol", "market_cap","pe_ratio", "Div", "eps", "Shares", "beta", "inst" ]
 
-stock_list = [["FB", "NASDAQ"],["ZYNE", "NASDAQ"],["PCTI", "NASDAQ"], ["NDSN", "NASDAQ"] ]
+stock_list = [["DRYS", "NASDAQ"],["AAPL","NASDAQ"],["RAD","NYSE"],["F","NYSE"],["CHK", "NYSE"],["S","NYSE"], ["BAC", "NYSE"],["AMD", "NASDAQ"],["FB", "NASDAQ"]]
 
 data_header = ["symbol", "exchange", "time"] + [stat_list]
 
@@ -72,6 +67,8 @@ def get_stat(stat,content):
             if flag ==1 and not(try_append(char)):
                 pair = pair + [value]
                 return pair
+    return [statistic, 'NA']
+            
 
 def fetchMarketData(stock):
     symbol = stock[0]
@@ -113,7 +110,7 @@ cnx = mysql.connector.connect(user='root', password='',
 for entry in raw_data[1:]:
     entrytuple = tuple(entry)
     querystr = "insert into masterdata values " + str(entrytuple)
-    print querystr
+    #print querystr
     query = (querystr)
     cursor = cnx.cursor()
     cursor.execute(query)
@@ -122,7 +119,7 @@ for entry in raw_data[1:]:
   
 cnx.commit()
 
-print "capture complete"
+print "capture complete", time.strftime("%b %d %H:%M")
 
 cnx.close()
 
