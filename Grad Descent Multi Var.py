@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import plotly.plotly as py
 	
 ### Generates data set of [Y, X1, X2, ... Xn], for example [Price, House Size, number of bedrooms, ...]
-SampleSize = 50
+#SampleSize = 50
 NumOfVars = 8
 
 def generateData():
@@ -30,12 +30,18 @@ def generateData():
 #Data = [[1,0],[.5,.5],[.6, .2],[.4,.7],[.5,.6],[.5,.5],[.1,.8],[.1,.9]]
 
 Data = []
+
+coefs = []
+for i in range(NumOfVars):
+    m = 2*random.random() - 1
+    coefs = coefs + [m]
+        
 for i in range(100):
     point = []
     y = 0
     for k in range(NumOfVars):
         x = random.random()
-        y = y + (k+1)*x    
+        y = y + coefs[k]*x    
         point = point + [x]
     point = [y] + point
     Data = Data + [point]
@@ -89,18 +95,19 @@ def GradDescent(Theta,Data,a, iterations):
         DJ = numpy.array(DJ)  
         
         Theta = Theta - a*DJ
-        Thetas = Thetas + [Theta[4]]
+        Thetas = Thetas + [Theta[1]]
     print(len(Thetas))
     plt.plot(range(iterations), Thetas)
     #plt.plot(range(iterations), t1s)
-    plt.show()
+    print coefs
     printstr = "y = " + str(Theta[0])
     for k in range(NumOfVars):
         printstr = printstr + " + " + str(Theta[k+1]) + "x_" + str(k+1)
-    print printstr 
+    print printstr
+    plt.show()
 
 
-GradDescent(Theta_naught,Data,.1,100)
+GradDescent(Theta_naught,Data,.01,1000)
 #
 #plt.scatter(XVect,YVect)
 #plt.show()
