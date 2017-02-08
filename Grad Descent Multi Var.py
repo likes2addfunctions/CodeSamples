@@ -8,26 +8,8 @@ import numpy
 import matplotlib.pyplot as plt
 import plotly.plotly as py
 	
-### Generates data set of [Y, X1, X2, ... Xn], for example [Price, House Size, number of bedrooms, ...]
-#SampleSize = 50
+### Generates data set of [Y, X1, X2, ... Xn], for example [Price, House Size, number of bedrooms, ...]#SampleSize = 50
 NumOfVars = 8
-
-def generateData():
-	Data = []
-
-	for k in range(SampleSize):
-		sample = []
-		for j in range(NumOfVars+1):
-			sample = sample + [random.random()]
-		Data = Data + [sample]
-	Data = numpy.array(Data)
-	return Data
-	
-#Data = generateData()
-
-#print Data
-
-#Data = [[1,0],[.5,.5],[.6, .2],[.4,.7],[.5,.6],[.5,.5],[.1,.8],[.1,.9]]
 
 Data = []
 
