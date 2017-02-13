@@ -72,13 +72,15 @@ def GradDescent(t0,t1,y,x,a, iterations):
     for x in XVect:
         predictedY = predictedY + [t0 + t1*x]
     fig = plt.figure()
-    fig.add_subplot(212)
+    scatter = fig.add_subplot(211)
+    scatter.set_title('Iterations vs. Coefficient Values') 
     plt.plot(range(iterations), t0s)
     plt.plot(range(iterations), t1s)
-    fig.add_subplot(211)
+    
+    iterations = fig.add_subplot(212)
     plt.plot(XVect,predictedY, 'r')
     plt.scatter(XArray,YArray)
-    plt.show()
+    fig.show()
     return (t0,t1)
 
 GradDescent(Theta0,Theta1,YVect,XVect,.001,1000)
