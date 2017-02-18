@@ -13,7 +13,14 @@ stat_list = ["cp", "pr" ,"open", "vol", "market_cap","pe_ratio", "Div", "eps", "
 
 stock_list = [["DRYS", "NASDAQ"],["AAPL","NASDAQ"],["RAD","NYSE"],["F","NYSE"],["CHK", "NYSE"],["S","NYSE"], ["BAC", "NYSE"],["AMD", "NASDAQ"],["FB", "NASDAQ"]]
 
-data_header = ["symbol", "exchange", "time"] + [stat_list]
+data_header = ["symbol", "exchange"] + [stat_list]
+
+sql_stat_tuple = ("symbol", "stockexchange", "cp", "pr" ,"open_price", "vol", "market_cap","pe_ratio", "Div_", "eps", "Shares", "beta", "inst" )
+
+dh_str = ""
+for k in str(sql_stat_tuple):
+    if k != "'":
+        dh_str = dh_str + k
 
 def try_append(char):
     try:
@@ -79,8 +86,8 @@ def fetchMarketData(stock):
     content = u.read()
     summary_start = content.find("renderRecentQuotes();")
     content = content[summary_start:]
-    header = [symbol,exchange,time.strftime("%b %d %H:%M")]
-    stats = [["symbol", "exchange", "time"], header]
+    header = [symbol,exchange]
+    stats = [["symbol", "exchange"], header]
     for stat in stat_list:
         if stat == '':
             stat = 'NA'
@@ -109,7 +116,7 @@ cnx = mysql.connector.connect(user='root', password='',
         
 for entry in raw_data[1:]:
     entrytuple = tuple(entry)
-    querystr = "insert into masterdata values " + str(entrytuple)
+    querystr = "insert into masterdata " + dh_str + " values " + str(entrytuple)
     #print querystr
     query = (querystr)
     cursor = cnx.cursor()
