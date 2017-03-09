@@ -13,10 +13,13 @@ NumOfVars = 1
 
 Data = []
 m = 20 * random.random() - 10
-for i in range(1000):
-    x = 2 * random.random() - 1
-    y = 2 * random.random() - 1
-    z = 2 * random.random() -1
+randscalex = 5*random.random()
+randscaley = 5*random.random()
+randscalez = 5*random.random()
+for i in range(5000):
+    x = randscalex * random.random() - 1
+    y = randscaley * random.random() - 1
+    z = randscalez * random.random() -1
     Data = Data + [[m*x + y, x + z]]
 
 ### Create Arrays and Vectors for graphing
@@ -83,7 +86,7 @@ def GradDescent(t0,t1,y,x,a, iterations):
     fig.show()
     return (t0,t1)
 
-GradDescent(Theta0,Theta1,YVect,XVect,.001,1000)
+GradDescent(Theta0,Theta1,YVect,XVect,.001,100)
 #
 #
 #plt.show()
