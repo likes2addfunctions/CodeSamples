@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import plotly.plotly as py
 import plotly.graph_objs as go
-
+import statsmodels.api as sm
 NumOfVars = 1
 
 ### Generates pseudo random linear data
@@ -16,8 +16,8 @@ m = 20 * random.random() - 10
 randscalex = 5*random.random()
 randscaley = 5*random.random()
 randscalez = 5*random.random()
-for i in range(50):
-    x = randscalex * random.random() - 1
+for i in range(10):
+    x = 2+ randscalex * random.random() - 1
     y = randscaley * random.random() - 1
     z = randscalez * random.random() -1
     Data = Data + [[m*x + y, x + z]]
@@ -84,8 +84,8 @@ def GradDescent(t0,t1,y,x,a, iterations):
     plt.plot(XVect,predictedY, 'r')
     plt.scatter(XArray,YArray)
     fig.show()
-    print list(XArray)
-    print list(YArray)
+    model = sm.OLS(XArray,YArray)
+    print model
     return (t0,t1)
 
 GradDescent(Theta0,Theta1,YVect,XVect,.001,100)

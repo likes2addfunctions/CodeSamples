@@ -1,3 +1,4 @@
+# -*- coding: cp1252 -*-
 ### Portfolio Note
 # This is a tool used to numerically solve the schroedinger equation for
 # any given potential and produces plots of various quantities of interest.
@@ -23,13 +24,13 @@ t = np.arange(0,2,Dt)
 #
 #yp0 = np.complex(.8*np.random.normal(),.8*np.random.normal())
 
-y0 = np.complex(0,0)
+y0 = np.complex(1,0)
 
-yp0 = np.complex(0,0)
+yp0 = np.complex(1,0)
 
 E = abs(np.random.normal())
 
-RandDamp = 0.01
+RandDamp = 0.00
 
 #h_bar = 10**(-4)
 #m = 10^-2
@@ -45,7 +46,7 @@ mu = 10
 
 
 def V(q):    
-    return -100./(1+1000*(q-10)**2)-100/(1+1000*(q-30)**2)-100/(1+1000*(q-70)**2)- 100/(1+1000*(q-50)**2)-100/(1+1000*(q-90)**2)
+    #return -100./(1+1000*(q-10)**2)-100/(1+1000*(q-30)**2)-100/(1+1000*(q-70)**2)- 100/(1+1000*(q-50)**2)-100/(1+1000*(q-90)**2)
         
         
     
@@ -65,7 +66,7 @@ def V(q):
     #    return np.cos(3*q)
     #return .1*(q-10)*(q-20)
     #
-    #return 0
+    return 0
     
     #return -np.sin(2*q)
     
