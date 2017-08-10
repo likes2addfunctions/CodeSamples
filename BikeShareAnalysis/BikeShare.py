@@ -36,6 +36,7 @@ def generate_report():
     round_trips = 0
     trips_by_date = {}
     weekend_trips = 0
+    weekday_trips = 0
     day_dict = {}
     for j in range(1,8):
         day_dict[j] = [[],[]]
@@ -64,8 +65,6 @@ def generate_report():
                 endDate = datetime.datetime.strptime(entry[5], "%m/%d/%Y %H:%M")
                 daterange = get_date_range(startDate,endDate)
                 for date in daterange:
-                    if not date.isoweekday() in range(1,6):
-                        weekend_trips = weekend_trips + 1
                     try:
                         trips_by_date[date] = trips_by_date[date]+ 1
                     except:
@@ -102,20 +101,30 @@ def generate_report():
     if abs(testStat) > 3:
         if rtProp < .5:
             print "Riders are significantly more likely to not make round trips"
-            print "Round trips were made ", rtProp * 100, " percent of the time for a test statistic of ", testStat
         else:
             print "Riders are significantly more likely to make round trips"
+            
     else:
         print "This data does not reflect a significant difference preference of round to one-way trips"
+    print "Round trips were made ", rtProp * 100, " percent of the time"
+    print "for a test statistic of ", testStat
 
-###Display Graph of number of trips by date, different makers for different days of the week
-    print "there were ", weekend_trips, " taken on the weekend and ", k - weekend_trips, "taken on the weekdays."
-
+### Separate trips by day of the week, count weekend vs weekday     
     for entry in trips_by_date:
         j = entry.isoweekday()
         day_dict[j][0] = day_dict[j][0] + [entry]
         day_dict[j][1] = day_dict[j][1] + [trips_by_date[entry]]
-    fig = plt.figure
+    for j in range(1,6):
+        for i in day_dict[j][1]:
+            weekday_trips = weekday_trips + i
+    for j in range(6,8):
+        for i in day_dict[j][1]:
+            weekend_trips = weekend_trips + i    
+    print "there were ", weekend_trips, " trips taken on the weekend and ", weekday_trips, " trips taken on the weekdays."
+
+###Display Graph of number of trips by date, different makers for different days of the week
+
+    fig = plt.figure()
     Monday = plt.plot(day_dict[1][0],day_dict[1][1], 'g^', label = 'Monday')
     Tuesday = plt.plot(day_dict[2][0],day_dict[2][1], 'b^', label = 'Tuesday')
     Wednesday = plt.plot(day_dict[3][0],day_dict[3][1], 'm^', label = 'Wednesday')
@@ -123,10 +132,12 @@ def generate_report():
     Friday = plt.plot(day_dict[5][0],day_dict[5][1], 'y^', label = 'Friday')
     Saturday = plt.plot(day_dict[6][0],day_dict[6][1], 'ko', label = 'Saturday')
     Sunday = plt.plot(day_dict[7][0],day_dict[7][1], 'co', label = 'Sunday')
-    plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=2, mode="expand", borderaxespad=0.)
+    plt.legend(bbox_to_anchor=(0., 1., 1., .01), loc=3, ncol=4, mode="expand", borderaxespad=0.)
     end = time.clock()
     print end - start
     plt.show()
+    fig.savefig("RidersByDay.png")
+    plt.close()
 
 
 

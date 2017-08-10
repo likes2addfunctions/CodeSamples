@@ -1,4 +1,4 @@
-Bike Share Readme
+Bike Share Instructions
 
 This is a program I wrote for a challenge. The challenge provided a csv file with 
 trip data from a bike share company over the span of about a year. 
