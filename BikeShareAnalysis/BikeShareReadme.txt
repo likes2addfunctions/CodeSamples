@@ -1,0 +1,12 @@
+Bike Share Readme
+
+This is a program I wrote for a challenge. The challenge provided a csv file with 
+trip data from a bike share company over the span of about a year. 
+
+The goals of the challenge were to:
+
+1. determine which bike saw the most use over the time period
+2. determine if riders are significantly more likely to take round or one-way trips
+3. display a graph of number of rides per day
+4. look for differnces in weekday/weekend use, represent visually 
+5. provide business insight based on the data obtained. 
