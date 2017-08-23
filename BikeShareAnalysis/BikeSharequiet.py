@@ -84,31 +84,11 @@ def generate_report():
         if use_by_id[entry][1] > most_rentals:
             most_rentals = use_by_id[entry][1]
             most_rented_bike = entry
-    print ""
-    print "Bike number", most_used_bike, "saw the most use at", \
-        most_used_time, "seconds."
-    print "Bike number", most_rented_bike, "saw the most rentals at",\
-        most_rentals, "rentals."
-    print ""
   
 ### anlysis for likelihood of round trips. It is assumed that each ride
-### is independent. The test is conducted with significnace level of .05.
-    rtProp = float(round_trips)/k    
+### is independent. The test is conducted with significnace level of .05. 
     pval = stats.binom_test(round_trips,k,.5)
-    if abs(pval) < .05:
-        if rtProp < .5:
-            print "Riders are significantly more likely to make", \
-                "one-way trips."
-        else:
-            print "Riders are significantly more likely to make round trips."           
-    else:
-        print "This data does not reflect a significant difference", \
-            "in prefreence of round to one-way trips"
-    print "Round trips were made", rtProp * 100, "percent of the time."
-    print "With a p-value of", pval, " 'significant', in this case,"
-    print "means a confidence of", 100*(1-pval), "%."
-    print ""
-    
+  
 ### Separate trips by day of the week, count weekend vs weekday     
     for entry in trips_by_date:
         j = entry.isoweekday()
@@ -120,9 +100,6 @@ def generate_report():
     for j in range(6,8):
         for i in day_dict[j][1]:
             weekend_trips = weekend_trips + i    
-    print "There were", weekend_trips, "trips taken on the weekend and", \
-        weekday_trips, "trips taken on the weekdays."
-    print ""
 
 ### Display Graph of number of trips by date, 
 ### different makers for different days of the week
@@ -139,32 +116,11 @@ def generate_report():
     fig.savefig("BikeShareRidersByDay.png")
     plt.close()
 
+    end = time.clock()
+
+    print "Bike used for longest time:", most_used_bike 
+    print "Bike rented most:", most_rented_bike  
+    print "Chance one way and round trip are equally likely:", pval
+    print "Run time:", end - start
+
 generate_report()
-
-print "Further Analysis:"
-print ""
-
-print "Difference in round trips:  There appears to be a very significant" 
-print "difference in the likelihood of riders to make round-trips."
-print "In particular they are much less likely to not make round trips." 
-print "This is likely due to people using the bikes for commute"
-print "rather than for pleasure."
-print ""
-
-print "Difference in Weekday vs. Weekend Usage: The data shows that almost 3.5" 
-print "times as many bikes are used on weekdays than on weekends."
-print "This further supports the idea that these bikes are mainly being used" 
-print "for commute, presumably to and from work."
-print ""
-
-print "Business Ramifications: It would be useful to increase business on the"
-print "weekends and/or encourage riders to use the bikes for"
-print "pleasure riding/excercise as well as for the commute they already use" 
-print "them for.  One solution might be to advertise and offer 'premium'"
-print "touring or mountin bikes that people could rent, perhaps for a "
-print "slightly higher price."
-
-print ""
-
-end = time.clock()
-print "run time:", end - start
