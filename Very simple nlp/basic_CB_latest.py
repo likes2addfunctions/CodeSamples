@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 import random
 
 start = time.time()
-datafile = "c:/users/g/desktop/data/train.csv"        
+datafile = "data/train.csv"        
 
 def get_stmt_cat(stmt):
     for k in range(num_of_cats-1):
