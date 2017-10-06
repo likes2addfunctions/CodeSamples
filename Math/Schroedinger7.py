@@ -12,6 +12,30 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
+def V(q):    
+    #return -100./(1+1000*(q-10)**2)-100/(1+1000*(q-30)**2)-100/(1+1000*(q-70)**2)- 100/(1+1000*(q-50)**2)-100/(1+1000*(q-90)**2)
+        
+        
+    
+    #if (2 < q) and (q < 7):
+    #    return  (q-2)*(q-7)
+    #else:
+    #    return 0
+    #
+    #if (2 > q) or (q > 8):
+    #    return  -1
+    #else:
+    #    return 0
+    
+    #return 1 + q*np.sin(q)/3 + np.log(1/(q**.5+1))
+    #
+    #if q < 10:
+    #    return np.cos(3*q)
+    #return .1*(q-10)*(q-20)
+    #
+    return 0
+    
+    #return -np.sin(2*q)
 
 Dx = .01
 x = np.arange(0,100,Dx)
@@ -42,46 +66,13 @@ mu = 10
 #m_electron = 9.10938291(40)×10−31 kg
 #planck_const = 1.054571800(13)×10−34
 # i h_bar psi= (-(h_bar)^2/2m *D^2/dx^ + V(x))psi
-
-
-
-def V(q):    
-    #return -100./(1+1000*(q-10)**2)-100/(1+1000*(q-30)**2)-100/(1+1000*(q-70)**2)- 100/(1+1000*(q-50)**2)-100/(1+1000*(q-90)**2)
-        
-        
-    
-    #if (2 < q) and (q < 7):
-    #    return  (q-2)*(q-7)
-    #else:
-    #    return 0
-    #
-    #if (2 > q) or (q > 8):
-    #    return  -1
-    #else:
-    #    return 0
-    
-    #return 1 + q*np.sin(q)/3 + np.log(1/(q**.5+1))
-    #
-    #if q < 10:
-    #    return np.cos(3*q)
-    #return .1*(q-10)*(q-20)
-    #
-    return 0
-    
-    #return -np.sin(2*q)
     
 Vs = []
 for k in x:
     Vs = Vs + [V(k)]
       
-
 yprime = [yp0]
 y = [y0]
-
-
-
-
-
 
 for k in range(len(x)-1):
     ypnorm = yprime[-1]*(1 + (RandDamp**1.5)*np.random.normal())+(RandDamp**1.5)*np.random.normal()

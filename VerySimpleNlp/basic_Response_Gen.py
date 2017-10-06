@@ -38,7 +38,7 @@ import matplotlib.pyplot as plt
 import random
 
 start = time.time()
-datafile = "c:/users/g/desktop/data/train.csv"        
+datafile = "c:/users/g/desktop/data/babytrain.csv"        
 
 def get_stmt_cat(stmt):
     
@@ -62,7 +62,7 @@ def validate(j, print_flag):
     if print_flag == 1:
         print("validating")
     out_preds = []
-    for stmt in TS:
+    for stmt in VS:
         out_preds.append(list(sess.run(y, {curr_in: [stmt]}))[0])
     OP = np.array(out_preds)
     if print_flag == 1:
@@ -72,11 +72,11 @@ def validate(j, print_flag):
             rept = []
             for num in OP[t]:
                 rept.append(float(f'{num:.2f}'))
-            print (rept, TR[t])
+            print (rept, VR[t])
         print ("")
     correct_prediction = tf.equal(tf.argmax(out_pred, 1), tf.argmax(out_cat, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-    Acc = sess.run(accuracy, feed_dict={out_pred: OP, out_cat: TR})    
+    Acc = sess.run(accuracy, feed_dict={out_pred: OP, out_cat: VR})    
     now = time.time()
     if print_flag == 1:
         print ("time :" , now - start, ":", "validation complete with", Acc, "accuracy after", j, "epochs." )    
@@ -163,6 +163,12 @@ with open (datafile, encoding ="utf8") as traindata:
 ### Each statement is transformed into a vector of length m
 vocab_processor = tf.contrib.learn.preprocessing.VocabularyProcessor(m, min_frequency = 1)
 preped_data = list(vocab_processor.fit_transform(convos))
+print (len(preped_data))
+valid_data = []
+for k in range(int(len(preped_data)/10)):
+    valid_data.append(preped_data.pop(random.randrange(len(preped_data))))
+print (len(preped_data))
+#preped_data = prep_data[(len(prep_data)/10):]
 vocab_dict = vocab_processor.vocabulary_._mapping  
 dict_len = len(vocab_dict)
 
@@ -197,8 +203,8 @@ init = tf.global_variables_initializer()
 sess.run(init)
 
 ###
-batch_size = 1000
-epochs = 10000
+batch_size = 100
+epochs = 1000
 
 ### list of accuracies for reporting
 Accs = []
@@ -208,17 +214,26 @@ newbatch = make_batch(preped_data, batch_size)
 TS = newbatch[0]
 TR = newbatch[1]
 
+validbatch = make_batch(valid_data, batch_size)
+VS = validbatch[0]
+VR = validbatch[1]
+
+
 ### train loop
 for k in range(epochs):
     print_w_time("beginning training")
     for j in range(batch_size):
         sess.run(train, feed_dict={curr_in: TS, out_cat: TR})
     print_w_time("making batch")
+    
+    Acc = validate(k,0)
+    Accs.append(Acc)
     newbatch = make_batch(preped_data, batch_size)
     TS = newbatch[0]
     TR = newbatch[1]
-    Acc = validate(k,0)
-    Accs.append(Acc)
+    validbatch = make_batch(valid_data, batch_size)
+    VS = validbatch[0]
+    VR = validbatch[1]
     
     ### print validation results on regular intervals.
     if k%10 == 0:

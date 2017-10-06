@@ -7,21 +7,6 @@ import urllib2  # works fine with Python 2.7.9 (not 3.4.+)
 import time
 import mysql.connector
 
-#os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
-stat_list = ["cp", "pr" ,"open", "vol", "market_cap","pe_ratio", "Div", "eps", "Shares", "beta", "inst" ]
-
-stock_list = [["DRYS", "NASDAQ"],["AAPL","NASDAQ"],["RAD","NYSE"],["F","NYSE"],["CHK", "NYSE"],["S","NYSE"], ["BAC", "NYSE"],["AMD", "NASDAQ"],["FB", "NASDAQ"]]
-
-data_header = ["symbol", "exchange"] + [stat_list]
-
-sql_stat_tuple = ("symbol", "stockexchange", "cp", "pr" ,"open_price", "vol", "market_cap","pe_ratio", "Div_", "eps", "Shares", "beta", "inst" )
-
-dh_str = ""
-for k in str(sql_stat_tuple):
-    if k != "'":
-        dh_str = dh_str + k
-
 def try_append(char):
     try:
         int(char)
@@ -108,9 +93,22 @@ def gather_data(stat_list, stock_list):
         data = data + [fetchMarketData(stock)[1]]
     return data
 
+#os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+stat_list = ["cp", "pr" ,"open", "vol", "market_cap","pe_ratio", "Div", "eps", "Shares", "beta", "inst" ]
+
+stock_list = [["DRYS", "NASDAQ"],["AAPL","NASDAQ"],["RAD","NYSE"],["F","NYSE"],["CHK", "NYSE"],["S","NYSE"], ["BAC", "NYSE"],["AMD", "NASDAQ"],["FB", "NASDAQ"]]
+
+data_header = ["symbol", "exchange"] + [stat_list]
+
+sql_stat_tuple = ("symbol", "stockexchange", "cp", "pr" ,"open_price", "vol", "market_cap","pe_ratio", "Div_", "eps", "Shares", "beta", "inst" )
+
+dh_str = ""
+for k in str(sql_stat_tuple):
+    if k != "'":
+        dh_str = dh_str + k
+
 raw_data = gather_data(stat_list, stock_list)
-
-
 
 cnx = mysql.connector.connect(user='root', password='',
                               host='10.0.0.7',

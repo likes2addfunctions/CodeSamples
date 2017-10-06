@@ -7,15 +7,6 @@ import random
 
 import matplotlib.pyplot as plt
 
-## M is max integer to be tested
-M = 10
-
-## m is number of trials per integer
-m = 2000
-
-##board_dim is number of dimensions of board
-board_dim = 4
-
 def run_trial(n):
     ## set random initial coords
     coords = []
@@ -77,7 +68,14 @@ def run_trials():
     plt.plot(probs[1:])
     fig.savefig("probs.png")
 
+## M is max integer to be tested
+M = 10
 
+## m is number of trials per integer
+m = 2000
+
+##board_dim is number of dimensions of board
+board_dim = 4
 
 run_trials()       
     

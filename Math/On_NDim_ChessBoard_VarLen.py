@@ -7,19 +7,6 @@ import random
 
 import matplotlib.pyplot as plt
 
-## M is max integer to be tested
-M = 15
-
-## m is number of trials per integer
-m = 10000
-
-##board_dim is number of dimensions of board
-board_dim = 2 +  random.randrange(98)
-
-## dim_len is length (number of squares) of each dimension. For a standard
-## Chessboard dim_len = 8
-side_len = 8 + random.randrange(92)
-
 def run_trial(n):
     ## set random initial coords
     coords = []
@@ -97,7 +84,18 @@ def run_trials():
     plt.plot(probs[1:])
     fig.savefig("probs.png")
 
+## M is max integer to be tested
+M = 15
 
+## m is number of trials per integer
+m = 10000
+
+##board_dim is number of dimensions of board
+board_dim = 2 +  random.randrange(98)
+
+## dim_len is length (number of squares) of each dimension. For a standard
+## Chessboard dim_len = 8
+side_len = 8 + random.randrange(92)
 
 run_trials()       
     

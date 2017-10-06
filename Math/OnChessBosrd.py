@@ -2,12 +2,6 @@ import random
 
 import matplotlib.pyplot as plt
 
-## M is max integer to be tested
-M = 10
-
-## m is number of trials per integer
-m = 200000
-
 def run_trial(n):
     ## set random initial coords
     x = random.randrange(8)
@@ -61,6 +55,11 @@ def run_trials():
     plt.plot(probs[1:])
     fig.savefig("probs.png")
 
+## M is max integer to be tested
+M = 10
+
+## m is number of trials per integer
+m = 200000
 
 
 run_trials()       

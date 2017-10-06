@@ -34,9 +34,7 @@ def remove_acquaintance(f1,f2):
     except:
         return 1
 
-network_data = {}
-purchase_data = []
-flex_data = {}
+
 
 def build_initial_data():
     flag = 0
@@ -54,13 +52,6 @@ def build_initial_data():
         elif evaluated["event_type"] == "unfriend":
             remove_acquaintance(evaluated["id1"],evaluated["id2"])
     print "data initialized"
-    
-
-build_initial_data()
-
-print len(purchase_data)
-
-#print set(network_data["6382"])
 
 def merge_friends(f1,f2):
     D = int(flex_data["D"])
@@ -84,28 +75,13 @@ def merge_friends(f1,f2):
         for acqID in friendhelp:
             add_acquaintance(f1, acqID, get_acq_level(acqID,f2) + first_degree)
     #print "added", len(friendhelp), "to user", f1
-    
-
-
+   
 def update_network(userID):
     OGuserFriends = set(network_data[userID])
     for friendID in OGuserFriends:
         merge_friends(userID,friendID)
     #print "network complete for", userID, "with", len(network_data[userID])
-
-nets = 0        
-for userID in network_data:
-    if nets < 20000:
-        update_network(userID)
-        nets = nets + 1
-        if nets % 1000 == 0:
-            print nets, "networks built"
-print "networks built"
-
-int_time = time.clock()
-print int_time - start
-print len(purchase_data)
-
+    
 def get_purchase_history(userID):
     D = int(flex_data["D"])
     n = 0
@@ -121,10 +97,6 @@ def get_purchase_history(userID):
                 n = n+1
     return purchase_history
 
-#print get_purchase_history("6382")
-
-email_data = []
-
 def decide_to_email(purchase_entry):
     item_price = float(purchase_entry["amount"])
     item_history = get_purchase_history(purchase_entry["id"])
@@ -138,9 +110,6 @@ def decide_to_email(purchase_entry):
         return True
     else:
         return False
-
-
-
 
 def process_event_data():
     for entry in open('stream_log.json'):
@@ -160,6 +129,33 @@ def process_event_data():
         elif evaluated["event_type"] == "unfriend":
 
             remove_acquaintance(evaluated["id1"],evaluated["id2"])
+    
+network_data = {}
+purchase_data = []
+flex_data = {}
+
+build_initial_data()
+
+print len(purchase_data)
+
+#print set(network_data["6382"])
+
+nets = 0        
+for userID in network_data:
+    if nets < 20000:
+        update_network(userID)
+        nets = nets + 1
+        if nets % 1000 == 0:
+            print nets, "networks built"
+print "networks built"
+
+int_time = time.clock()
+print int_time - start
+print len(purchase_data)
+
+#print get_purchase_history("6382")
+
+email_data = []
 
 process_event_data()
 
@@ -174,7 +170,6 @@ flagged_purchases.write(fp_str)
 flagged_purchases.close()
 
 print "purchases written"
-
 
 end = time.clock()
 print end - start

@@ -7,35 +7,6 @@ import random
 import numpy
 import matplotlib.pyplot as plt
 import plotly.plotly as py
-	
-### Generates data set of [Y, X1, X2, ... Xn], for example [Price, House Size, number of bedrooms, ...]#SampleSize = 50
-NumOfVars = 8
-
-Data = []
-
-coefs = []
-for i in range(NumOfVars):
-    m = 2*random.random() - 1
-    coefs = coefs + [m]
-        
-for i in range(100):
-    point = []
-    y = 0
-    for k in range(NumOfVars):
-        x = random.random()
-        y = y + coefs[k]*x    
-        point = point + [x]
-    point = [y] + point
-    Data = Data + [point]
-    
-#print XVect
-#print YVect    
-
-### Linear Regression Hypothesis
-Theta_naught = [0]
-for i in range(NumOfVars):
-    Theta_naught = Theta_naught + [1]
-Theta_naught = numpy.array(Theta_naught)
 
 def hTheta(Theta, x):
     return Theta[0] + numpy.dot(Theta[1:],x)
@@ -88,6 +59,34 @@ def GradDescent(Theta,Data,a, iterations):
     print printstr
     plt.show()
 
+### Generates data set of [Y, X1, X2, ... Xn], for example [Price, House Size, number of bedrooms, ...]#SampleSize = 50
+NumOfVars = 8
+
+Data = []
+
+coefs = []
+for i in range(NumOfVars):
+    m = 2*random.random() - 1
+    coefs = coefs + [m]
+        
+for i in range(100):
+    point = []
+    y = 0
+    for k in range(NumOfVars):
+        x = random.random()
+        y = y + coefs[k]*x    
+        point = point + [x]
+    point = [y] + point
+    Data = Data + [point]
+    
+#print XVect
+#print YVect    
+
+### Linear Regression Hypothesis
+Theta_naught = [0]
+for i in range(NumOfVars):
+    Theta_naught = Theta_naught + [1]
+Theta_naught = numpy.array(Theta_naught)
 
 GradDescent(Theta_naught,Data,.01,1000)
 #

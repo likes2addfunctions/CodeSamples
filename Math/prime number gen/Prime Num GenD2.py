@@ -1,18 +1,6 @@
 import os
 import ast
 
-
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
-init_file = open("top_list.py")
-start_list_num = ast.literal_eval(init_file.read())
-init_file.close()    
-	
-pfname = "Prime Lists\primesy_" + str(start_list_num) + "_to_" + str(start_list_num + 100000000) + ".py"
-init_file = open(pfname)
-primes = ast.literal_eval(init_file.read())
-init_file.close()
-
 def appendprimes():
 	target = primes[-1]**2 - 1
 	new_primes = []
@@ -62,19 +50,28 @@ def appendprimes():
 	str(k-1+delta), "known." , len(primes), "in total."
 	return
 	
-
-	
-pfname = "Prime Lists\primesy_" + str(0) + "_to_" + str(100000000) + ".py"
-init_file = open(pfname)
-primes_100 = ast.literal_eval(init_file.read())
-init_file.close() 
-    
 def check_help(num):
 	for p in primes_100:
 		if num%p == 0:
 			return 0
 		if p**2 > num:
 			return 1
+	
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+init_file = open("top_list.py")
+start_list_num = ast.literal_eval(init_file.read())
+init_file.close()    
+	
+pfname = "Prime Lists\primesy_" + str(start_list_num) + "_to_" + str(start_list_num + 100000000) + ".py"
+init_file = open(pfname)
+primes = ast.literal_eval(init_file.read())
+init_file.close()
+	
+pfname = "Prime Lists\primesy_" + str(0) + "_to_" + str(100000000) + ".py"
+init_file = open(pfname)
+primes_100 = ast.literal_eval(init_file.read())
+init_file.close() 
         
 appendprimes()
 

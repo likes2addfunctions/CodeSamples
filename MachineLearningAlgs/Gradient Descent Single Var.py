@@ -7,35 +7,6 @@ import matplotlib.pyplot as plt
 import plotly.plotly as py
 import plotly.graph_objs as go
 
-NumOfVars = 1
-
-### Generates pseudo random linear data
-
-Data = []
-m = 20 * random.random() - 10
-randscalex = 5*random.random()
-randscaley = 5*random.random()
-randscalez = 5*random.random()
-for i in range(50):
-    x = randscalex * random.random() - 1
-    y = randscaley * random.random() - 1
-    z = randscalez * random.random() -1
-    Data = Data + [[m*x + y, x + z]]
-
-### Create Arrays and Vectors for graphing
-    
-XVect = []
-YVect = []
-for k in range(len(Data)):
-    XVect = XVect + [Data[k][1]]
-    YVect = YVect + [Data[k][0]]
-
-XArray = np.array(XVect)
-YArray = np.array(YVect)
-
-### Linear Regression Hypothesis
-Theta0 = 1
-Theta1 = 1
 
 def hTheta(t0, t1, x):
     return t0 + t1*x
@@ -87,6 +58,37 @@ def GradDescent(t0,t1,y,x,a, iterations):
     print list(XArray)
     print list(YArray)
     return (t0,t1)
+    
+NumOfVars = 1
+
+### Generates pseudo random linear data
+
+Data = []
+m = 20 * random.random() - 10
+randscalex = 5*random.random()
+randscaley = 5*random.random()
+randscalez = 5*random.random()
+for i in range(50):
+    x = randscalex * random.random() - 1
+    y = randscaley * random.random() - 1
+    z = randscalez * random.random() -1
+    Data = Data + [[m*x + y, x + z]]
+
+### Create Arrays and Vectors for graphing
+    
+XVect = []
+YVect = []
+for k in range(len(Data)):
+    XVect = XVect + [Data[k][1]]
+    YVect = YVect + [Data[k][0]]
+
+XArray = np.array(XVect)
+YArray = np.array(YVect)
+
+### Linear Regression Hypothesis
+Theta0 = 1
+Theta1 = 1
+
 
 GradDescent(Theta0,Theta1,YVect,XVect,.001,100)
 #
