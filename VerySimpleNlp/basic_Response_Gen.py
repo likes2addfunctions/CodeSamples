@@ -38,7 +38,7 @@ import matplotlib.pyplot as plt
 import random
 
 start = time.time()
-datafile = "c:/users/g/desktop/data/babytrain.csv"        
+datafile = "c:/users/g/desktop/data/train.csv"        
 
 def get_stmt_cat(stmt):
     
@@ -58,6 +58,7 @@ def get_stmt_cat(stmt):
 def validate(j, print_flag):
     
     ### validation function, takes an epoch number (j) and print_flag
+    ### uses global variables VS, VR
     
     if print_flag == 1:
         print("validating")
@@ -203,8 +204,8 @@ init = tf.global_variables_initializer()
 sess.run(init)
 
 ###
-batch_size = 100
-epochs = 1000
+batch_size = 1000
+epochs = 10000
 
 ### list of accuracies for reporting
 Accs = []
